@@ -34,15 +34,17 @@ const Sidebar = () => {
           Tweet
         </button>
 
-        <div className="text-[#0f1419] flex items-center justify-center mt-auto hoverAnimation xl:ml-auto xl:-mr-5">
-          <img src="https://lh3.google.com/u/0/ogw/ADea4I5x8qVLpIpqeZOvyR8M7JYeOwYrfYtNlnWvPFhO=s32-c-mo" 
-          alt="account initial name"  
+        <div className="text-[#333] flex items-center justify-center mt-auto hoverAnimation xl:ml-auto xl:-mr-5">
+          <img src="/assets/google-jaedon.jpeg" 
+          alt="name"  
           className="h-10 w-10 rounded-full xl:mr-2.5" />
 
           <div className="hidden xl:inline leading-5">
             <h4 className="font-bold">jaedon 1994</h4>
             <p className="text-[#6e767d]">@jaedonlee1994</p>
           </div>
+
+          <DotsHorizontalIcon className="hidden h-5 xl:inline ml-10"/>
         </div>
     </div>
   )

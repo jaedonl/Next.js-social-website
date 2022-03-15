@@ -1,0 +1,20 @@
+import { SparklesIcon } from '@heroicons/react/outline'
+import React from 'react'
+import Input from './Input'
+
+const Feed = () => {
+  return (
+    <div className="flex-grow border-l border-r border-[#EFF3F4]-700 max-w-2xl sm:ml-[73px] xl:ml-[370px]">
+        <div className="text=[#333] flex items-center sm:justify-between py-2 px-3 sticky top-0 z-50 bg-fff border-b border-[#EFF3F4]-700">
+            <h2 className="text-lg sm:text-xl font-bold">Home</h2>
+            <div className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0 ml-auto">
+                <SparklesIcon className="h-5 text-[#333]" />
+            </div>
+        </div>
+
+        <Input/>
+    </div>
+  )
+}
+
+export default Feed
