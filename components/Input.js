@@ -11,7 +11,10 @@ const Input = () => {
     const filePickerRef = useRef(null)
 
     const sendPost = () => {
+        if (loading) return
+        setLoading(true)
 
+        // const docRef = 
     }
 
     const addImageToPost = () => {
