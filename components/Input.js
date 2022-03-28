@@ -5,8 +5,11 @@ import { Picker } from 'emoji-mart'
 import { db, storage } from '../firebase'
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from '@firebase/firestore'
 import { getDownloadURL, ref, uploadString } from '@firebase/storage'
+import { useSession } from 'next-auth/react'
 
 const Input = () => {
+    const { data: session, status } = useSession()
+
     const [input, setInput] = useState('')
     const [selectedFile, setSelectedFile] = useState(null)
     const [showEmojis, setShowEmojis] = useState(false)
@@ -18,10 +21,10 @@ const Input = () => {
         setLoading(true)
 
         const docRef = await addDoc(collection(db, 'posts'), {
-            // id: session.user.uid,
-            // username: session.user.name,
-            // userImg: session.user.image,
-            // tag: session.user.tag,
+            id: session.user.uid,
+            username: session.user.name,
+            userImg: session.user.image,
+            tag: session.user.tag,
             text: input,
             timestamp: serverTimestamp(),
         })
@@ -64,7 +67,8 @@ const Input = () => {
 
     return (
         <div className={`border-b border-[#EFF3F4]-700 p-3 flex space-x-3 overflow-y-scroll`}>
-            <img src="/assets/google-jaedon.jpeg" alt="name" className="h-10 w-10 rounded-full xl:mr-2.5 cursor-pointer" />
+            {/* <img src="/assets/google-jaedon.jpeg" alt="name" className="h-10 w-10 rounded-full xl:mr-2.5 cursor-pointer" /> */}
+            <img src={session.user.image} alt="name" className="h-10 w-10 rounded-full xl:mr-2.5 cursor-pointer" />
 
             <div className="w-full divide-y divide-[#EFF3F4]-700"> 
                 <div className={`${selectedFile && 'pb-7'} ${input && 'space-y-2.5'}`}> 

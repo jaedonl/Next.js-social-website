@@ -21,8 +21,9 @@ export default function Home({ trendingResults, followResults, providers }) {
       </Head>
       
       <main className="bg-[#fff] min-h-screen flex max-w-[1500px] mx-auto">
-        <Sidebar/>
-        <Feed/>
+        <Sidebar session={session} />
+        <Feed session={session} />
+        {/* {session.user.image} */}
         {/* Widgets */}
 
         {/* Modal */}
