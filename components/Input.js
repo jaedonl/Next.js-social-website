@@ -66,8 +66,7 @@ const Input = () => {
     }    
 
     return (
-        <div className={`border-b border-[#EFF3F4]-700 p-3 flex space-x-3 overflow-y-scroll`}>
-            {/* <img src="/assets/google-jaedon.jpeg" alt="name" className="h-10 w-10 rounded-full xl:mr-2.5 cursor-pointer" /> */}
+        <div className={`border-b border-[#EFF3F4]-700 p-3 flex space-x-3 overflow-y-scroll scrollbar-hide`}>
             <img src={session.user.image} alt="name" className="h-10 w-10 rounded-full xl:mr-2.5 cursor-pointer" />
 
             <div className="w-full divide-y divide-[#EFF3F4]-700"> 

@@ -1,25 +1,24 @@
+import { SparklesIcon } from '@heroicons/react/outline'
 import { useState, useEffect } from 'react'
 import Input from './Input'
-import Post from './Post'
-import { SparklesIcon } from '@heroicons/react/outline'
-import { useSession } from "next-auth/react";
 import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
 import { db } from "../firebase";
-
+import Post from './Post'
+import { useSession } from "next-auth/react";
 
 const Feed = () => {
   const { data: session } = useSession();
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([])  
 
-  useEffect(() => {
+  useEffect(() => 
     onSnapshot(
       query(collection(db, 'posts'), orderBy("timestamp", "desc")),
       (snapshot) => {
-        setPosts(snapshot.docs)
+        setPosts(snapshot.docs)        
       }
-    )
-  }, [db])
-
+    ), [db]
+  )
+      
   return (
     <div className="flex-grow border-l border-r border-[#EFF3F4]-700 max-w-2xl sm:ml-[73px] xl:ml-[370px]">
         <div className="text=[#333] flex items-center sm:justify-between py-2 px-3 sticky top-0 z-50 bg-fff border-b border-[#EFF3F4]-700">
@@ -32,9 +31,9 @@ const Feed = () => {
         <Input />
 
         <div className="pb-72">
-          {posts.map((post) => {
+          {posts.map((post) => (
             <Post key={post.id} id={post.id} post={post.data()} />
-          })}
+          ))}
         </div>
     </div>
   )
