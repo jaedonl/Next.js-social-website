@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { ChartBarIcon, EmojiHappyIcon, CalendarIcon, PhotographIcon, XIcon } from '@heroicons/react/outline'
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'

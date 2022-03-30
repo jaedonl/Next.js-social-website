@@ -17,22 +17,30 @@ const Post = ({id, post, postPage}) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const router = useRouter()
-  const [test, setTest] = useState({})
+
+  // useEffect(() => {
+  //   setLiked(
+  //     likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+  //   )    
+  // }, [likes])
+
+  useEffect(() => {
+    let isLiked = likes.findIndex((like) => like.id === session?.user?.uid)
+    
+    if (isLiked !== -1) setLiked(true)
+    else setLiked(false)  
+  }, [likes])
+
 
   const likePost = async () => {
     if (liked) {
       await deleteDoc(doc(db, "posts", id, "likes", session.user.uid ))
+    } else {
+      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
+        username: session.user.name,
+      })
     }
-  }
-
-  const getPost = async () => {
-    let testDoc = await getDoc(doc(db, "posts", id))
-    setTest(testDoc.data())
-  }
-  
-  useEffect(() => {
-    console.log(test)
-  }, [test])
+  }  
 
   return (
     <div className="p-3 flex cursor-pointer border-b border-[#EFF3F4]-700" onClick={() => router.push(`${id}`)}>        
@@ -117,8 +125,7 @@ const Post = ({id, post, postPage}) => {
             <div className="flex items-center space-x-1 group"
               onClick={(e) => {
                 e.stopPropagation();
-                // likePost();
-                getPost();
+                likePost();                
               }}
             >
               <div className="icon group-hover:bg-pink-600/10">
