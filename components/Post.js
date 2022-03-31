@@ -17,25 +17,27 @@ const Post = ({id, post, postPage}) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const router = useRouter()
-
-  // useEffect(() => {
-  //   setLiked(
-  //     likes.findIndex((like) => like.id === session?.user?.uid) !== -1
-  //   )    
-  // }, [likes])
+  
 
   useEffect(() => {
-    let isLiked = likes.findIndex((like) => like.id === session?.user?.uid)
-    
-    if (isLiked !== -1) setLiked(true)
-    else setLiked(false)  
+    onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
+      setLikes(snapshot.docs)
+    )
+  }, [db, id]);
+  
+  
+  useEffect(() => {
+    setLiked(
+      likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+    )    
   }, [likes])
 
 
   const likePost = async () => {
     if (liked) {
       await deleteDoc(doc(db, "posts", id, "likes", session.user.uid ))
-    } else {
+    } 
+    else {
       await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
         username: session.user.name,
       })
@@ -44,12 +46,11 @@ const Post = ({id, post, postPage}) => {
 
   return (
     <div className="p-3 flex cursor-pointer border-b border-[#EFF3F4]-700" onClick={() => router.push(`${id}`)}>        
-        {!postPage && (
+      {!postPage && (
         <img src={post?.userImg} alt="user image" className="h-11 w-11 rounded-full mr-4" />
-        )
-        }
+      )}
 
-        <div className="flex flex-col space-y-2 w-full">
+      <div className="flex flex-col space-y-2 w-full">
           <div className={`flex ${!postPage && "justify-between"}`}>
             {postPage && (
               <img src={post?.userImg} alt="Profile Picture" className="h-11 w-11 rounded-full mr-4" />
@@ -154,7 +155,7 @@ const Post = ({id, post, postPage}) => {
               <ChartBarIcon className="h-5 group-hover:text-[#1d9bf0]" />
             </div>
           </div>
-        </div>
+      </div>
     </div>
   )
 }

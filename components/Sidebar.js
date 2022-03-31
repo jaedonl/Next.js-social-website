@@ -7,6 +7,8 @@ import { signOut, useSession } from 'next-auth/react';
 const Sidebar = () => {  
   const { data: session, status } = useSession()
 
+  console.log(session)
+
   return (
     <div className="hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed h-full">
         <div className="flex items-center justify-center w-14 h-14 hoverAnimation p-0 xl:ml-24">
@@ -29,8 +31,8 @@ const Sidebar = () => {
         </button>
 
         <div className="text-[#333] flex items-center justify-center mt-auto hoverAnimation ml-auto" onClick={signOut}>          
-          <img src={session.user.image}
-          alt="name"  
+          <img src={session.user?.image ? session.user?.image : `/assets/no_profile.png` }
+          alt="profile"  
           className="h-10 w-10 rounded-full xl:mr-2.5" />
 
           <div className="hidden xl:inline leading-5">
