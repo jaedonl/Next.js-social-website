@@ -4,6 +4,8 @@ import Sidebar from '../components/Sidebar'
 import Feed from '../components/Feed';
 import Login from '../components/Login';
 import Modal from '../components/Modal';
+import { modalState } from "../atoms/modalAtom";
+import { useRecoilState } from "recoil";
 import { getProviders, getSession, useSession } from "next-auth/react"
 // getProviders() method returns the list of providers currently configured for sign in.
 // useSession() React Hook in the NextAuth.js client is the easiest way to check if someone is signed in.
@@ -11,6 +13,7 @@ import { getProviders, getSession, useSession } from "next-auth/react"
 
 export default function Home({ trendingResults, followResults, providers }) {
   const { data: session, status } = useSession()
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
 
   if (!session) return <Login providers={providers} />
 
@@ -27,7 +30,7 @@ export default function Home({ trendingResults, followResults, providers }) {
 
         {/* <Widget /> */}
 
-        <Modal />
+        {isOpen && <Modal />}
       </main>
     </div>
   )
