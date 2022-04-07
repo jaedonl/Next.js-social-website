@@ -30,7 +30,7 @@ export default function Home({ trendingResults, followResults, providers }) {
 
         {/* <Widget /> */}
 
-        {isOpen && <Modal />}
+        {isOpen && <Modal />}        
       </main>
     </div>
   )

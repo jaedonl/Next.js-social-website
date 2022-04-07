@@ -11,14 +11,13 @@ import { db } from "../firebase";
 
 const Post = ({id, post, postPage}) => {
   const { data: session } = useSession()
-  const [isOpen, setIsopen] = useRecoilState(modalState)
+  const [isOpen, setIsOpen] = useRecoilState(modalState)
   const [postId, setPostId] = useRecoilState(postIdState)
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const router = useRouter()
   
-
   useEffect(() => {
     onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
       setLikes(snapshot.docs)
