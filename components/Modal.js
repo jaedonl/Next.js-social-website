@@ -15,7 +15,7 @@ const Modal = () => {
     const [postId, setPostId] = useRecoilState(postIdState)
     const [post, setPost] = useState();
     const [comment, setComment] = useState("");
-    const router = useRouter()    
+    const router = useRouter()
 
     useEffect(() => {        
         onSnapshot(doc(db, "posts", postId), (snapshot) => {            
@@ -24,14 +24,18 @@ const Modal = () => {
     }, [db]);        
 
     const sendComment = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         await addDoc(collection(db, 'posts', postId, "comments"), {
             comment: comment,
             username: session.user.name,
             tag: session.user.tag,
-            userImg: session.user.image,
+            userImg: session.user.image ? session.user.image : "/assets/no_profile.png",
             timestamp: serverTimestamp()
         })
+        setIsOpen(false)
+        setComment("")
+
+        router.push(`/posts/${postId}`)
     }
 
     return (
@@ -89,8 +93,10 @@ const Modal = () => {
                                         </div>
                                     </div>
 
+                                    {}
+
                                     <div className="mt-7 flex space-x-3 w-full">
-                                        <img src={session.user.image} alt="" className="h-11 w-11 rounded-full" />
+                                        <img src={session.user?.image ? session.user?.image : `assets/no_profile.png`} alt="" className="h-11 w-11 rounded-full" />
                                         <div className="flex-grow mt-2">
                                             <textarea 
                                                 value={comment} 

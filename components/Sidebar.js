@@ -1,11 +1,17 @@
+import { useEffect } from 'react';
 import Image from 'next/image'
 import { HomeIcon } from "@heroicons/react/solid";
 import { HashtagIcon, BellIcon, InboxIcon, BookmarkIcon, ClipboardListIcon, UserIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon } from "@heroicons/react/outline";
 import SidebarLink from './SidebarLink'
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 const Sidebar = () => {  
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
+
+  useEffect(() => {
+    console.log(session)
+  }, [session])
 
   return (
     <div className="hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed h-full">
@@ -29,7 +35,7 @@ const Sidebar = () => {
         </button>
 
         <div className="text-[#333] flex items-center justify-center mt-auto hoverAnimation ml-auto" onClick={signOut}>          
-          <img src={session.user?.image ? session.user?.image : `/assets/no_profile.png` }
+          <img src={session.user?.image ? session.user?.image : `/assets/no_profile.png`}
           alt="profile"  
           className="h-10 w-10 rounded-full xl:mr-2.5" />
 

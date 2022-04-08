@@ -5,7 +5,7 @@ import { Picker } from 'emoji-mart'
 import { db, storage } from '../firebase'
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from '@firebase/firestore'
 import { getDownloadURL, ref, uploadString } from '@firebase/storage'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 const Input = () => {
     const { data: session, status } = useSession()
@@ -23,7 +23,7 @@ const Input = () => {
         const docRef = await addDoc(collection(db, 'posts'), {
             id: session.user.uid,
             username: session.user.name,
-            userImg: session.user.image ? session.user.image : "/assets/no_profile.png",
+            userImg: session.user.image,
             tag: session.user.tag,
             text: input,
             timestamp: serverTimestamp(),
@@ -67,7 +67,7 @@ const Input = () => {
 
     return (
         <div className={`border-b border-[#EFF3F4]-700 p-3 flex space-x-3 overflow-y-scroll scrollbar-hide`}>
-            <img src={session.user?.image ? session.user?.image : `/assets/no_profile.png` } alt="name" className="h-10 w-10 rounded-full xl:mr-2.5 cursor-pointer" />
+            <img src={session.user?.image ? session.user?.image : `/assets/no_profile.png` } alt="name" className="h-10 w-10 rounded-full xl:mr-2.5 cursor-pointer" onClick={signOut} />
 
             <div className="w-full divide-y divide-[#EFF3F4]-700"> 
                 <div className={`${selectedFile && 'pb-7'} ${input && 'space-y-2.5'}`}> 

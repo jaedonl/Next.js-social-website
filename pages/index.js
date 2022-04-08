@@ -52,7 +52,7 @@ export const getServerSideProps = async (context) => {
       trendingResults, 
       followResults,
       providers,
-      session 
+      session, 
     } 
   }
 }

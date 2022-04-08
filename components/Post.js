@@ -19,11 +19,18 @@ const Post = ({id, post, postPage}) => {
   const router = useRouter()
   
   useEffect(() => {
+    onSnapshot(query(
+      collection(db, "posts", id, "comments"), 
+      orderBy("timestamp", "Desc")), (snapshot) => {
+        setComments(snapshot.docs)
+    })
+  }, [db, id])
+
+  useEffect(() => {
     onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
       setLikes(snapshot.docs)
     )
   }, [db, id]);
-  
   
   useEffect(() => {
     setLiked(
@@ -44,9 +51,9 @@ const Post = ({id, post, postPage}) => {
   }  
 
   return (
-    <div className="p-3 flex cursor-pointer border-b border-[#EFF3F4]-700" onClick={() => router.push(`${id}`)}>        
+    <div className="p-3 flex cursor-pointer border-b border-[#EFF3F4]-700" onClick={() => router.push(`/posts/${id}`)}>        
       {!postPage && (
-        <img src={post?.userImg} alt="user image" className="h-11 w-11 rounded-full mr-4" />
+        <img src={post?.userImg ? post?.userImg : `/assets/no_profile.png` } alt="user image" className="h-11 w-11 rounded-full mr-4" />
       )}
 
       <div className="flex flex-col space-y-2 w-full">
