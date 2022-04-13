@@ -9,10 +9,6 @@ import { useSession } from 'next-auth/react';
 const Sidebar = () => {  
   const { data: session } = useSession()
 
-  useEffect(() => {
-    console.log(session)
-  }, [session])
-
   return (
     <div className="hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed h-full">
         <div className="flex items-center justify-center w-14 h-14 hoverAnimation p-0 xl:ml-24">
@@ -21,7 +17,7 @@ const Sidebar = () => {
 
         <div className="space-y-2.5 mt-4 mb-2.5 xl:ml-24">
           <SidebarLink text="Home" Icon={HomeIcon} active />
-          <SidebarLink text="Explore" Icon={HashtagIcon} />
+          <SidebarLink text="Explore" Icon={HashtagIcon} /> 
           <SidebarLink text="Notifications" Icon={BellIcon} />
           <SidebarLink text="Messages" Icon={InboxIcon} />
           <SidebarLink text="Bookmarks" Icon={BookmarkIcon} />
@@ -35,7 +31,7 @@ const Sidebar = () => {
         </button>
 
         <div className="text-[#333] flex items-center justify-center mt-auto hoverAnimation ml-auto" onClick={signOut}>          
-          <img src={session.user?.image ? session.user?.image : `/assets/no_profile.png`}
+          <img src={session.user?.image}
           alt="profile"  
           className="h-10 w-10 rounded-full xl:mr-2.5" />
 

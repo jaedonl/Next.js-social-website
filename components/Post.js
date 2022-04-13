@@ -19,11 +19,15 @@ const Post = ({id, post, postPage}) => {
   const router = useRouter()
   
   useEffect(() => {
-    onSnapshot(query(
-      collection(db, "posts", id, "comments"), 
-      orderBy("timestamp", "Desc")), (snapshot) => {
+    onSnapshot(
+      query(
+        collection(db, "posts", id, "comments"), 
+        orderBy("timestamp", "Desc")
+      ), 
+      (snapshot) => {
         setComments(snapshot.docs)
-    })
+      }
+    )
   }, [db, id])
 
   useEffect(() => {
@@ -51,7 +55,7 @@ const Post = ({id, post, postPage}) => {
   }  
 
   return (
-    <div className="p-3 flex cursor-pointer border-b border-[#EFF3F4]-700" onClick={() => router.push(`/posts/${id}`)}>        
+    <div className="p-3 flex cursor-pointer border-b border-[#EFF3F4]-700" onClick={() => router.push(`/${id}`)}>        
       {!postPage && (
         <img src={post?.userImg ? post?.userImg : `/assets/no_profile.png` } alt="user image" className="h-11 w-11 rounded-full mr-4" />
       )}
@@ -86,7 +90,7 @@ const Post = ({id, post, postPage}) => {
               <p className="text-[#333] text-[15px] sm:text-base mt-0.5">{post?.text}</p>
           )}
 
-          {post.image && (
+          {post?.image && (
           <img src={post?.image} alt="post image" className="rounded-2xl max-h-[700px] object-cover mr-2" />
           )}
             

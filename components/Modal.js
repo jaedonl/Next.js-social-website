@@ -21,7 +21,7 @@ const Modal = () => {
         onSnapshot(doc(db, "posts", postId), (snapshot) => {            
             setPost(snapshot.data())        
         })        
-    }, [db]);        
+    }, [db]);            
 
     const sendComment = async (e) => {
         e.preventDefault();
