@@ -17,11 +17,11 @@ const Modal = () => {
     const [comment, setComment] = useState("");
     const router = useRouter()
 
-    useEffect(() => {        
+    useEffect(() =>       
         onSnapshot(doc(db, "posts", postId), (snapshot) => {            
             setPost(snapshot.data())        
         })        
-    }, [db]);            
+    , [db]);            
 
     const sendComment = async (e) => {
         e.preventDefault();
@@ -35,7 +35,7 @@ const Modal = () => {
         setIsOpen(false)
         setComment("")
 
-        router.push(`/posts/${postId}`)
+        router.push(`/${postId}`)
     }
 
     return (

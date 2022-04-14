@@ -16,20 +16,20 @@ import { ArrowLeftIcon } from "@heroicons/react/solid";
 import axios from 'axios'
 
 const PostPage = ({trendingResults, followResults, providers}) => {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [post, setPost] = useState()
   const [comments, setComments] = useState([]);
   const router = useRouter()
   const { id } = router.query
 
-  useEffect(() => {
+  useEffect(() => 
     onSnapshot(doc(db, "posts", id), (snapshot) => {
       setPost(snapshot.data())
-    })
-  }, [db])
+    }), [db]
+  )
 
-  useEffect(() => {
+  useEffect(() => 
     onSnapshot(
       query(
         collection(db, "posts", id, "comments"),
@@ -38,13 +38,8 @@ const PostPage = ({trendingResults, followResults, providers}) => {
       (snapshot) => {
         setComments(snapshot.docs)        
       }
-    )   
-  }, [db, id])  
-
-  comments.forEach(element => {
-    console.log(element.data())
-  });
-
+    ), [db, id]
+  )
 
   if (!session) return <Login providers={providers} />
   return (
@@ -68,7 +63,7 @@ const PostPage = ({trendingResults, followResults, providers}) => {
           <Post id={id} post={post} postPage />
           {comments.length > 0 && (
             <div className="pb-72">
-              {comments.map(comment => (
+              {comments.map((comment) => (
                 <Comment key={comment.id} id={comment.id} comment={comment.data()} />
               ))}
             </div>

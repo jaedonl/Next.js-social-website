@@ -18,29 +18,29 @@ const Post = ({id, post, postPage}) => {
   const [liked, setLiked] = useState(false);
   const router = useRouter()
   
-  useEffect(() => {
+  useEffect(() => 
     onSnapshot(
       query(
         collection(db, "posts", id, "comments"), 
-        orderBy("timestamp", "Desc")
+        orderBy("timestamp", "desc")
       ), 
       (snapshot) => {
         setComments(snapshot.docs)
       }
-    )
-  }, [db, id])
+    ), [db, id]
+  )
 
-  useEffect(() => {
+  useEffect(() => 
     onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
       setLikes(snapshot.docs)
     )
-  }, [db, id]);
+  ,[db, id]);
   
-  useEffect(() => {
+  useEffect(() => 
     setLiked(
       likes.findIndex((like) => like.id === session?.user?.uid) !== -1
     )    
-  }, [likes])
+  , [likes])
 
 
   const likePost = async () => {
@@ -67,9 +67,9 @@ const Post = ({id, post, postPage}) => {
             )}
             <div className="text-[#999]">
               <div className="inline-block group">
-                <h4 className={`font-bold text-[15px] sm:text-base text-[#333] group-hover:underline ${!postPage && "inline-block"}`}>
+                <h2 className={`font-bold text-[15px] sm:text-base text-[#333] group-hover:underline ${!postPage && "inline-block"}`}>
                   {post?.username}
-                </h4>
+                </h2>
                 <span className={`text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}>@{post?.tag}</span>                
               </div>{" "}·{" "}
 
