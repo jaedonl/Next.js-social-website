@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Head from 'next/head'
 import Sidebar from '../components/Sidebar'
+import Widgets from '../components/Widgets';
 import Feed from '../components/Feed';
 import Login from '../components/Login';
 import Modal from '../components/Modal';
@@ -28,7 +29,7 @@ export default function Home({ trendingResults, followResults, providers }) {
         <Sidebar />
         <Feed />
 
-        {/* <Widget /> */}
+        <Widgets trendingResults={trendingResults} followResults={followResults} />
 
         {isOpen && <Modal />}        
       </main>

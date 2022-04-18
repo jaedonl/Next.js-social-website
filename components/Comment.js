@@ -7,9 +7,7 @@ import {
 } from "@heroicons/react/outline";
 import Moment from "react-moment";
 
-const Comment = ({comment}) => {
-  console.log(comment)
-  
+const Comment = ({comment}) => {  
   return (
     <div className="p-3 flex cursor-pointer border-b border-[#EFF3F4]-700">      
       <img src={comment?.userImg} alt="user image" className="h-11 w-11 rounded-full mr-4" />
