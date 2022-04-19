@@ -14,10 +14,9 @@ import { getProviders, getSession, useSession } from "next-auth/react"
 
 export default function Home({ trendingResults, followResults, providers }) {
   const { data: session, status } = useSession()
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
+  const [isOpen, setIsOpen] = useRecoilState(modalState);  
 
   if (!session) return <Login providers={providers} />
-
   return (
     <div className="">
       <Head>
